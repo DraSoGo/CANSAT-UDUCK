@@ -14,7 +14,7 @@
 
 Servo myservo;
 Adafruit_BME280 bme;
-volatile int H = 100;
+volatile int H = 0;
 
 void nowheight()
 {
