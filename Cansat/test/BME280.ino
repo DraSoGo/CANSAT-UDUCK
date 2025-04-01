@@ -22,16 +22,15 @@ void setup() {
 
   bool status;
   
-  // default settings
+  // default settings1
   // (you can also pass in a Wire library object like &Wire2)
   status = bme.begin();  
   if (!status) {
-    Serial.println("Could not find a valid BME280 sensor, check wiring!");
+    Serial.println("Starting BME280 failed!");
     while (1);
   }
   
-  Serial.println("-- Default Test --");
-  delayTime = 1000;
+  Serial.println("BME280 Initial OK!");
 
   Serial.println();
 }
@@ -39,7 +38,7 @@ void setup() {
 
 void loop() { 
   printValues();
-  delay(delayTime);
+  delay(1000);
 }
 
 
@@ -47,11 +46,6 @@ void printValues() {
   Serial.print("Temperature = ");
   Serial.print(bme.readTemperature());
   Serial.println(" *C");
-  
-  // Convert temperature to Fahrenheit
-  /*Serial.print("Temperature = ");
-  Serial.print(1.8 * bme.readTemperature() + 32);
-  Serial.println(" *F");*/
   
   Serial.print("Pressure = ");
   Serial.print(bme.readPressure() / 100.0F);
