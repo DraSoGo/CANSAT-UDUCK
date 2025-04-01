@@ -20,8 +20,7 @@ void setup()
   digitalWrite(LoRa_CS, DeSelect);
   SPI.begin();
   LoRa.setPins( LoRa_CS, LoRa_RST, DI0 );
-  digitalWrite(LoRa_CS, Select);   //  SELECT (low) LoRa SPI
-  //Serial.println("LoRa Sender");
+  digitalWrite(LoRa_CS, Select);
   if (!LoRa.begin(BAND))
   {
     Serial.println("Starting LoRa failed!");
