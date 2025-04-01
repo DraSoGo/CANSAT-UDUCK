@@ -36,7 +36,8 @@ Adafruit_BME280 bme;
 
 //GY-521
 MPU6050 imu;
-int16_t ax, ay, az, gx, gy, gz, roll, pitch;
+int16_t ax, ay, az, gx, gy, gz;
+double roll, pitch;
 
 void setup()
 {
@@ -93,13 +94,18 @@ void loop()
   printBME();
   LoRa.println("Data GY-521");
   printGY();
+  LoRa.endPacket();
   delay(1000);
 }
 
 //GPS print
 void printGPS()
 {
-  gps.encode(ss.read());
+  while (ss.available())
+  {
+    gps.encode(ss.read());
+  }
+  // gps.encode(ss.read());
   //Location
   if (gps.location.isValid())
   {
