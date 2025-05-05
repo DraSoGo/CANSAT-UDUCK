@@ -1,246 +1,286 @@
 #include <SPI.h>
 #include <LoRa.h>
 #include <Wire.h>
-#include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
 #include <TinyGPS++.h>
-#include <SoftwareSerial.h>
 #include <MPU6050.h>
 
-//Lora
-#define  LoRa_SCK   13
-#define  LoRa_MISO  12
-#define  LoRa_MOSI  11
-#define  LoRa_CS    10
-#define  LoRa_RST   9
-#define  DI0        2
-#define  BAND    915E6
-#define  Select    LOW   //  Low CS means that SPI device Selected
-#define  DeSelect  HIGH  //  High CS means that SPI device Deselected
-
-//GPS
-#define RXPin 4
-#define TXPin 3
-static const uint32_t GPSBaud = 9600;
+// ——— GPS over UART1 ———
+HardwareSerial GPSserial(1);
+#define RXPin 16 // GPIO16 (RX1)
+#define TXPin 17 // GPIO17 (TX1)
+static const uint32_t GPSBaud = 115200;
 TinyGPSPlus gps;
-SoftwareSerial ss(RXPin, TXPin);
 
-//BME280
-#define BME_SCK 13
-#define BME_MISO 12
-#define BME_MOSI 11
-#define BME_CS 10
-#define SEALEVELPRESSURE_HPA (1013.25)
-Adafruit_BME280 bme;
+// ——— LoRa SPI pins (TTGO LoRa32 V1) ———
+#define LORA_SCK 5
+#define LORA_MISO 19
+#define LORA_MOSI 27
+#define LORA_SS 18
+#define LORA_RST 14
+#define LORA_DIO0 26
+#define BAND 915E6
 
-//GY-521
-MPU6050 imu;
+// ——— I²C for BME280 & MPU6050 ———
+#define I2C_SDA 21
+#define I2C_SCL 22
+#define SEALEVELPRESSURE_HPA 1013.25
+
+Adafruit_BME280 bme; // BME280 sensor
+MPU6050 imu;         // MPU6050 IMU
+
+// Raw sensor readings & computed angles
 int16_t ax, ay, az, gx, gy, gz;
 double roll, pitch;
 
 void setup()
 {
-  Serial.begin(9600);
-  //Lora setup
-  while (!Serial);
-  pinMode(LoRa_CS, OUTPUT);
-  digitalWrite(LoRa_CS, DeSelect);
-  SPI.begin();
-  LoRa.setPins( LoRa_CS, LoRa_RST, DI0 );
-  digitalWrite(LoRa_CS, Select);
+  // Serial for debug
+  Serial.begin(115200);
+  while (!Serial)
+    ;
+
+  // —— GPS UART setup ——
+  GPSserial.begin(GPSBaud, SERIAL_8N1, RXPin, TXPin);
+
+  // —— LoRa setup ——
+  SPI.begin(LORA_SCK, LORA_MISO, LORA_MOSI, LORA_SS);
+  LoRa.setPins(LORA_SS, LORA_RST, LORA_DIO0);
   if (!LoRa.begin(BAND))
   {
-    Serial.println("Starting LoRa failed!");
+    Serial.println("LoRa init failed!");
+    while (1)
+      ;
   }
-  else
+  Serial.println("LoRa Initialized OK");
+  LoRa.setSyncWord(0x6D);
+  // —— I2C bus setup ——
+  Wire.begin(I2C_SDA, I2C_SCL);
+
+  // —— BME280 init ——
+  if (!bme.begin(0x76))
   {
-    Serial.println("LoRa Initial OK!");
-    delay(1000);
+    Serial.println("BME280 init failed!");
+    while (1)
+      ;
   }
+  Serial.println("BME280 Initialized OK");
 
-  //GPS setup
-  ss.begin(GPSBaud);
-
-  //BME280 setup
-  bool status;
-  status = bme.begin();
-  if (!status) {
-    Serial.println("Starting BME280 failed!");
-    while (1);
-  }
-  
-  Serial.println("BME280 Initial OK!");
-  Serial.println();
-  //GY-521 setup
-  Wire.begin();
+  // —— MPU6050 init ——
   imu.initialize();
-  if (!imu.testConnection()) {
+  if (!imu.testConnection())
+  {
     Serial.println("MPU6050 connection failed!");
-    while (1);
+    while (1)
+      ;
   }
-  Serial.println("MPU6050 Initialized OK!");
+  Serial.println("MPU6050 Initialized OK");
 }
 
 void loop()
 {
+  // start a new LoRa packet
   LoRa.beginPacket();
-  if(ss.available() > 0)
-  {
-    LoRa.println("Data GPS");
-    printGPS();
-  }
-  LoRa.println("Data BME280");
+
+  // GPS data
+  printGPS();
+
+  // BME280 data
   printBME();
-  LoRa.println("Data GY-521");
+
+  // IMU data
   printGY();
+
+  // finish and send
   LoRa.endPacket();
+
   delay(1000);
 }
 
-//GPS print
+// ——— Print GPS data over LoRa ———
 void printGPS()
 {
-  while (ss.available())
+  // feed GPS characters
+  while (GPSserial.available())
   {
-    gps.encode(ss.read());
+    gps.encode(GPSserial.read());
   }
-  // gps.encode(ss.read());
-  //Location
+
+  Serial.println("-- GPS --");
+  LoRa.println("-- GPS --");
+
   if (gps.location.isValid())
   {
-    // Latitude in degrees (double)
-    LoRa.print("Latitude = ");
+    Serial.print("Lat: ");
+    Serial.print(gps.location.lat(), 6);
+    Serial.print("  Lon: ");
+    Serial.println(gps.location.lng(), 6);
+    LoRa.print("Lat: ");
     LoRa.print(gps.location.lat(), 6);
-    // Longitude in degrees (double)
-    LoRa.print(" Longitude = ");
+    LoRa.print("  Lon: ");
     LoRa.println(gps.location.lng(), 6);
   }
   else
   {
-    LoRa.println("Location ERROR!");
+    Serial.println("Location ERROR");
+    LoRa.println("Location ERROR");
   }
 
-  //Time
-  if(gps.time.isValid())
+  if (gps.time.isValid())
   {
-    // Raw time in HHMMSSCC format (u32)
-    LoRa.print("Raw time in HHMMSSCC = ");
+    Serial.print("Time (HHMMSSCC): ");
+    Serial.println(gps.time.value());
+    LoRa.print("Time (HHMMSSCC): ");
     LoRa.println(gps.time.value());
   }
   else
   {
-    LoRa.println("Time ERROR!");
+    Serial.println("Time ERROR");
+    LoRa.println("Time ERROR");
   }
 
-  //Speed
-  if(gps.speed.isValid())
+  if (gps.speed.isValid())
   {
-    // Speed in kilometers per hour (double)
-    LoRa.print("Speed in km/h = ");
+    Serial.print("Speed km/h: ");
+    Serial.println(gps.speed.kmph());
+    LoRa.print("Speed km/h: ");
     LoRa.println(gps.speed.kmph());
   }
   else
   {
-    LoRa.println("Speed ERROR!");
+    Serial.println("Speed ERROR");
+    LoRa.println("Speed ERROR");
   }
 
-  //Direction
-  if(gps.course.isValid())
+  if (gps.course.isValid())
   {
-    // Direction in degrees (double)
-    LoRa.print("Direction in degrees = ");
+    Serial.print("Course °: ");
+    Serial.println(gps.course.deg());
+    LoRa.print("Course °: ");
     LoRa.println(gps.course.deg());
   }
   else
   {
-    LoRa.println("Direction ERROR!");
+    Serial.println("Course ERROR");
+    LoRa.println("Course ERROR");
   }
 
-  //Altitude
-  if(gps.altitude.isValid())
+  if (gps.altitude.isValid())
   {
-    // Altitude in meters (double)
-    LoRa.print("Altitude in meters = ");
+    Serial.print("Alt m: ");
+    Serial.println(gps.altitude.meters());
+    LoRa.print("Alt m: ");
     LoRa.println(gps.altitude.meters());
   }
   else
   {
-    LoRa.println("Altitude ERROR!");
+    Serial.println("Altitude ERROR");
+    LoRa.println("Altitude ERROR");
   }
 
-  //HDOP
-  if(gps.hdop.isValid())
+  if (gps.hdop.isValid())
   {
-    // ความแม่นยำ
-    LoRa.print("HDOP = ");
+    Serial.print("HDOP: ");
+    Serial.println(gps.hdop.value());
+    LoRa.print("HDOP: ");
     LoRa.println(gps.hdop.value());
   }
   else
   {
-    LoRa.println("HDOP ERROR!");
+    Serial.println("HDOP ERROR");
+    LoRa.println("HDOP ERROR");
+  }
+  if (gps.satellites.isValid())
+  {
+    int sats = gps.satellites.value();
+    Serial.print("Satellites: ");
+    Serial.println(sats);
+    LoRa.print("Satellites: ");
+    LoRa.println(sats);
+  }
+  else
+  {
+    Serial.println("Satellites ERROR");
+    LoRa.println("Satellites ERROR");
   }
 
-}
-
-//BME280 print
-void printBME()
-{
-  //temp
-  LoRa.print("Temperature = ");
-  LoRa.print(bme.readTemperature());
-  LoRa.println(" *C");
-  
-  //pressure
-  LoRa.print("Pressure = ");
-  LoRa.print(bme.readPressure() / 100.0F);
-  LoRa.println(" hPa");
-  
-  //Altitude
-  LoRa.print("Altitude = ");
-  LoRa.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
-  LoRa.println(" m");
-  
-  //Humidity
-  LoRa.print("Humidity = ");
-  LoRa.print(bme.readHumidity());
-  LoRa.println(" %");
-  
+  Serial.println();
   LoRa.println();
 }
 
-//GY-521 print
+// ——— Print BME280 data over Serial ———
+void printBME()
+{
+  Serial.println("-- BME280 --");
+  Serial.print("Temp °C: ");
+  Serial.println(bme.readTemperature());
+  Serial.print("Pressure hPa: ");
+  Serial.println(bme.readPressure() / 100.0F);
+  Serial.print("Alt m: ");
+  Serial.println(bme.readAltitude(SEALEVELPRESSURE_HPA));
+  Serial.print("Humidity %: ");
+  Serial.println(bme.readHumidity());
+  Serial.println();
+  LoRa.println("-- BME280 --");
+  LoRa.print("Temp °C: ");
+  LoRa.println(bme.readTemperature());
+  LoRa.print("Pressure hPa: ");
+  LoRa.println(bme.readPressure() / 100.0F);
+  LoRa.print("Alt m: ");
+  LoRa.println(bme.readAltitude(SEALEVELPRESSURE_HPA));
+  LoRa.print("Humidity %: ");
+  LoRa.println(bme.readHumidity());
+  LoRa.println();
+}
+
+// ——— Print MPU6050 (accel + gyro + angles) ———
 void printGY()
 {
   imu.getAcceleration(&ax, &ay, &az);
   imu.getRotation(&gx, &gy, &gz);
-  printAccel();
-  printGyro();
-  printRollPitch();
-}
 
-void printAccel()
-{
-  LoRa.print("Accel = ");
-  LoRa.print(ax); LoRa.print("\t");
-  LoRa.print(ay); LoRa.print("\t");
-  LoRa.print(az); LoRa.println();
-}
+  // accel
+  Serial.print("Accel X,Y,Z: ");
+  Serial.print(ax);
+  Serial.print(", ");
+  Serial.print(ay);
+  Serial.print(", ");
+  Serial.println(az);
+  LoRa.print("Accel X,Y,Z: ");
+  LoRa.print(ax);
+  LoRa.print(", ");
+  LoRa.print(ay);
+  LoRa.print(", ");
+  LoRa.println(az);
 
-void printGyro()
-{
-  LoRa.print("Gyro = ");
-  LoRa.print(gx); LoRa.print("\t");
-  LoRa.print(gy); LoRa.print("\t");
-  LoRa.print(gz); LoRa.println();
-}
+  // gyro
+  Serial.print("Gyro X,Y,Z:  ");
+  Serial.print(gx);
+  Serial.print(", ");
+  Serial.print(gy);
+  Serial.print(", ");
+  Serial.println(gz);
+  LoRa.print("Gyro X,Y,Z:  ");
+  LoRa.print(gx);
+  LoRa.print(", ");
+  LoRa.print(gy);
+  LoRa.print(", ");
+  LoRa.println(gz);
 
-void printRollPitch()
-{
+  // compute roll & pitch
   roll = atan2(ay, az) * 180.0 / PI;
   pitch = atan2(-ax, sqrt(ay * ay + az * az)) * 180.0 / PI;
+  Serial.print("Roll °: ");
+  Serial.print(roll);
+  Serial.print("  Pitch °: ");
+  Serial.println(pitch);
 
-  LoRa.print("Roll/Pitch = ");
-  LoRa.print(pitch); LoRa.print("\t");
-  LoRa.print(roll); LoRa.println();
+  Serial.println();
+  LoRa.print("Roll °: ");
+  LoRa.print(roll);
+  LoRa.print("  Pitch °: ");
+  LoRa.println(pitch);
+
+  LoRa.println();
 }

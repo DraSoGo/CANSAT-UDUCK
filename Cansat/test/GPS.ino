@@ -1,54 +1,96 @@
 #include <TinyGPS++.h>
-#include <SoftwareSerial.h>
 
-#define RXPin 4
-#define TXPin 3
+HardwareSerial GPSserial(1);
 
-static const uint32_t GPSBaud = 9600;
+#define RXPin 16
+#define TXPin 17
+#define GPSBaud 9600
 
-// The TinyGPS++ object
 TinyGPSPlus gps;
 
-// The serial connection to the GPS device
-SoftwareSerial ss(RXPin, TXPin);
-
-void setup() {
-  Serial.begin(9600);
-  ss.begin(GPSBaud);
+void setup()
+{
+  Serial.begin(115200);
+  GPSserial.begin(GPSBaud, SERIAL_8N1, RXPin, TXPin);
 }
 
 void loop()
 {
-  // This sketch displays information every time a new sentence is correctly encoded.
-  if (ss.available() > 0) {
-    gps.encode(ss.read());
-    if (gps.location.isUpdated()) {
-      // Latitude in degrees (double)
-      Serial.print("Latitude= ");
-      Serial.print(gps.location.lat(), 6);
-      // Longitude in degrees (double)
-      Serial.print(" Longitude= ");
-      Serial.println(gps.location.lng(), 6);
-
-      // Raw time in HHMMSSCC format (u32)
-      Serial.print("Raw time in HHMMSSCC = ");
-      Serial.println(gps.time.value());
-
-      // Speed in kilometers per hour (double)
-      Serial.print("Speed in km/h = ");
-      Serial.println(gps.speed.kmph());
-
-      // Direction in degrees (double)
-      Serial.print("Direction in degrees = ");
-      Serial.println(gps.course.deg());
-
-      // Altitude in meters (double)
-      Serial.print("Altitude in meters = ");
-      Serial.println(gps.altitude.meters());
-
-      // ความแม่นยำ
-      Serial.print("HDOP = ");
-      Serial.println(gps.hdop.value());
-    }
+  while (GPSserial.available())
+  {
+    gps.encode(GPSserial.read());
   }
+  if (gps.location.isValid())
+  {
+    Serial.print("Lat: ");
+    Serial.print(gps.location.lat(), 6);
+    Serial.print("  Lon: ");
+    Serial.println(gps.location.lng(), 6);
+  }
+  else
+  {
+    Serial.println("Location ERROR");
+  }
+
+  if (gps.time.isValid())
+  {
+    Serial.print("Time (HHMMSSCC): ");
+    Serial.println(gps.time.value());
+  }
+  else
+  {
+    Serial.println("Time ERROR");
+  }
+
+  if (gps.speed.isValid())
+  {
+    Serial.print("Speed km/h: ");
+    Serial.println(gps.speed.kmph());
+  }
+  else
+  {
+    Serial.println("Speed ERROR");
+  }
+
+  if (gps.course.isValid())
+  {
+    Serial.print("Course °: ");
+    Serial.println(gps.course.deg());
+  }
+  else
+  {
+    Serial.println("Course ERROR");
+  }
+
+  if (gps.altitude.isValid())
+  {
+    Serial.print("Alt m: ");
+    Serial.println(gps.altitude.meters());
+  }
+  else
+  {
+    Serial.println("Altitude ERROR");
+  }
+
+  if (gps.hdop.isValid())
+  {
+    Serial.print("HDOP: ");
+    Serial.println(gps.hdop.value());
+  }
+  else
+  {
+    Serial.println("HDOP ERROR");
+  }
+  if (gps.satellites.isValid())
+  {
+    int sats = gps.satellites.value();
+    Serial.print("Satellites: ");
+    Serial.println(sats);
+  }
+  else
+  {
+    Serial.println("Satellites ERROR");
+  }
+  Serial.println("=============================");
+  delay(1000);
 }
