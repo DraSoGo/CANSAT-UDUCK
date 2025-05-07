@@ -10,7 +10,7 @@
 HardwareSerial GPSserial(1);
 #define RXPin 16 // GPIO16 (RX1)
 #define TXPin 17 // GPIO17 (TX1)
-static const uint32_t GPSBaud = 115200;
+static const uint32_t GPSBaud = 9600;
 TinyGPSPlus gps;
 
 // ——— LoRa SPI pins (TTGO LoRa32 V1) ———
