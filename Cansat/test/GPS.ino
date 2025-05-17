@@ -2,8 +2,8 @@
 
 HardwareSerial GPSserial(1);
 
-#define RXPin 16
-#define TXPin 17
+#define RXPin 17
+#define TXPin 16
 #define GPSBaud 9600
 
 TinyGPSPlus gps;
@@ -91,6 +91,8 @@ void loop()
   {
     Serial.println("Satellites ERROR");
   }
+  Serial.print("CHAR: ");
+  Serial.println(gps.charsProcessed());
   Serial.println("=============================");
   delay(1000);
 }
