@@ -4,7 +4,7 @@
 
 MPU6050 imu;
 bool ch = 0;
-int16_t first = 500;
+double first = 500;
 int16_t axRaw, ayRaw, azRaw;
 int16_t gxRaw, gyRaw, gzRaw;
 double ax, ay, az, gx, gy, gz, roll, pitch;
@@ -50,8 +50,8 @@ void loop()
       ch = 1;
       Serial.println("Run Servo");
       myservo.write(180);
-      delay(1000);
-      myservo.detach();
+      // delay(1000);
+      // myservo.detach();
     }
     // myservo.write(0);
   }

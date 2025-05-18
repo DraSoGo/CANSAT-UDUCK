@@ -5,7 +5,7 @@ Servo myservo;
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(9600); 
   myservo.attach(PIN_SERVO);
 }
 
