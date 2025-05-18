@@ -1,54 +1,86 @@
 #include <Wire.h>
-#include <SPI.h>
-#include <Adafruit_Sensor.h>
-#include <Adafruit_BME280.h>
+#include <MPU6050.h>
 #include <Servo.h>
 
-#define BME_SCK 13
-#define BME_MISO 12
-#define BME_MOSI 11
-#define BME_CS 10
-#define SEALEVELPRESSURE_HPA (1013.25)
-
-#define PIN_SERVO 5
-
+MPU6050 imu;
+bool ch = 0;
+int16_t first = 500;
+int16_t axRaw, ayRaw, azRaw;
+int16_t gxRaw, gyRaw, gzRaw;
+double ax, ay, az, gx, gy, gz, roll, pitch;
+#define PIN_SERVO 9
 Servo myservo;
-Adafruit_BME280 bme;
-volatile int H = 0;
-
-void nowheight()
-{
-  H = bme.readAltitude(SEALEVELPRESSURE_HPA);
-}
 
 void setup()
 {
   Serial.begin(9600);
-  Serial.println(F("Rocket System Starting..."));
-
+  Wire.begin();
   myservo.attach(PIN_SERVO);
-
-  if (!bme.begin())
-  {
-    Serial.println("Starting BME280 failed!");
-    while(1);
+  imu.initialize();
+  if (!imu.testConnection()) {
+    Serial.println("MPU6050 connection failed!");
+    while (1);
   }
-  attachInterrupt(0, nowheight, CHANGE);
-  Serial.println("System Ready!");
+  Serial.println("MPU6050 Initialized");
 }
 
 void loop()
 {
-  if (H >= 400)
+  imu.getAcceleration(&axRaw, &ayRaw, &azRaw);
+  imu.getRotation(&gxRaw, &gyRaw, &gzRaw);
+  ax = axRaw * (9.80665 / 16384.0);
+  ay = ayRaw * (9.80665 / 16384.0);
+  az = azRaw * (9.80665 / 16384.0);
+  gx = gxRaw / 131.0;
+  gy = gyRaw / 131.0;
+  gz = gzRaw / 131.0;
+  printAccel();
+  printGyro();
+  printRollPitch();
+  if(first == 500)
   {
-    Serial.println("Altitude reached 400m - Activating Servo");
-    myservo.write(180);
-    delay(1000);
-    return;
+    first = roll;
   }
-  
-  Serial.print("Current Altitude: ");
-  Serial.print(H);
-  Serial.println(" m");
-  delay(500);
+  Serial.println(first);
+  if(first/abs(first) != roll/abs(roll))
+  {
+    Serial.println("Return");
+    if(!ch)
+    {
+      ch = 1;
+      Serial.println("Run Servo");
+      myservo.write(180);
+      delay(1000);
+      myservo.detach();
+    }
+    // myservo.write(0);
+  }
+  Serial.println("---------");
+  delay(1000);
+}
+
+void printAccel()
+{
+  Serial.print("Accel: ");
+  Serial.print(ax); Serial.print("\t");
+  Serial.print(ay); Serial.print("\t");
+  Serial.print(az); Serial.println();
+}
+
+void printGyro()
+{
+  Serial.print("Gyro: ");
+  Serial.print(gx); Serial.print("\t");
+  Serial.print(gy); Serial.print("\t");
+  Serial.print(gz); Serial.println();
+}
+
+void printRollPitch()
+{
+  roll = atan2(ay, az) * 180.0 / PI;
+  pitch = atan2(-ax, sqrt(ay * ay + az * az)) * 180.0 / PI;
+
+  Serial.print("Roll/Pitch: ");
+  Serial.print(roll); Serial.print("\t");
+  Serial.print(pitch); Serial.println();
 }

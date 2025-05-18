@@ -1,8 +1,7 @@
 #include <Servo.h>
-#define PIN_SERVO 5
+#define PIN_SERVO 9
 
 Servo myservo;
-int H = 100;
 
 void setup()
 {
@@ -12,10 +11,7 @@ void setup()
 
 void loop()
 {
-  if (H >= 400)
-  {
-    Serial.println("Starting Servo");
-    myservo.write(180);
-  }
+  Serial.println("Starting Servo");
+  myservo.write(180);
   delay(1000);
 }

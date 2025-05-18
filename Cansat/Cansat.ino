@@ -242,31 +242,31 @@ void printGY()
 
   // accel
   Serial.print("Accel X,Y,Z: ");
-  Serial.print(ax);
+  Serial.print(ax * (9.80665 / 16384.0));
   Serial.print(", ");
-  Serial.print(ay);
+  Serial.print(ay * (9.80665 / 16384.0));
   Serial.print(", ");
-  Serial.println(az);
+  Serial.println(az * (9.80665 / 16384.0));
   LoRa.print("Accel X,Y,Z: ");
-  LoRa.print(ax);
+  LoRa.print(ax * (9.80665 / 16384.0));
   LoRa.print(", ");
-  LoRa.print(ay);
+  LoRa.print(ay * (9.80665 / 16384.0));
   LoRa.print(", ");
-  LoRa.println(az);
+  LoRa.println(az * (9.80665 / 16384.0));
 
   // gyro
   Serial.print("Gyro X,Y,Z:  ");
-  Serial.print(gx);
+  Serial.print(gx / 131.0);
   Serial.print(", ");
-  Serial.print(gy);
+  Serial.print(gy / 131.0);
   Serial.print(", ");
-  Serial.println(gz);
+  Serial.println(gz / 131.0);
   LoRa.print("Gyro X,Y,Z:  ");
-  LoRa.print(gx);
+  LoRa.print(gx / 131.0);
   LoRa.print(", ");
-  LoRa.print(gy);
+  LoRa.print(gy / 131.0);
   LoRa.print(", ");
-  LoRa.println(gz);
+  LoRa.println(gz / 131.0);
 
   // compute roll & pitch
   roll = atan2(ay, az) * 180.0 / PI;
