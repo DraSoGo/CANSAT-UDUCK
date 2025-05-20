@@ -1,5 +1,18 @@
 # **🦆 UDUCK-CANSAT 🦆**
 ## **🚀 Thailand CanSat-Rocket Competition 2025**
+
+## **⚒️ Hardware**
+1. **TTGO LoRa32 SX1276** : Controll,Communicated with ground
+2. **MPU6050** : Sensor,Deployment
+3. **GPS** : Sensor
+4. **BME280** : Sensor
+5. **Servo** : Deployment
+
+## **💻  Software**
+1. **Ardino IDE** : Write arduino for control hardware.
+2. **CoolTerm** : See and save log from Arduino IDE.
+3. **Visual Studio Code** : Analysis data from log.
+
 ## **🗃️ File**
 1. **[❎]Blackbox** : Keep data on the board. 
 2. **[✅]Cansat** : Code for cansat.
@@ -21,20 +34,13 @@
         - BME280.ino : Code for test of BME280.
         - Servo.ino : Code for test of servo.
     - Rocket.ino : Code process in rocket.
-6. **[⏬]libraries** : list libraries need to install before use this repo.
-7. **[ℹ️]README.md** : description of repo.
-8. **[ℹ️]log1.txt** : data from cansat.
+6. **[⏬]libraries** : List libraries need to install before use this repo.
+7. **[ℹ️]README.md** : Description of repo.
+8. **[ℹ️]log1.txt** : Data from cansat.
 
 |**✅ Ready to use**|**❎ Not ready to use**|
 |---|---|
 |**⏬ Need to install**|**ℹ️ Information**|
-
-## **⚒️ Tool**
-1. **TTGO LoRa32 SX1276** : controll,communicated with ground
-2. **MPU6050** : sensor,deployment
-3. **GPS** : sensor
-4. **BME280** : sensor
-5. **Servo** : deployment
 
 ## **📃 Data Format**
 |**Line**| **Part** | **Data** | **Unit** |
