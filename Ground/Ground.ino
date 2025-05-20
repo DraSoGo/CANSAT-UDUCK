@@ -9,6 +9,8 @@
 #define LORA_DIO0 26
 #define BAND 915E6
 
+int co = 0;
+
 void setup()
 {
   Serial.begin(115200);
@@ -32,6 +34,7 @@ void loop()
   int packetSize = LoRa.parsePacket();
   if (packetSize > 0)
   {
+    co++;
     // Serial.println("-------------");
     while (LoRa.available())
     {
