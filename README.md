@@ -25,6 +25,10 @@
 7. **[ℹ️]README.md** : description of repo.
 8. **[ℹ️]log1.txt** : data from cansat.
 
+|**✅ Ready to use**|**❎ Not ready to use**|
+|---|---|
+|**⏬ Need to install**|**ℹ️ Information**|
+
 ## **⚒️ Tool**
 1. **TTGO LoRa32 SX1276** : controll,communicated with ground
 2. **MPU6050** : sensor,deployment
@@ -32,9 +36,6 @@
 4. **BME280** : sensor
 5. **Servo** : deployment
 
-|**✅ Ready to use**|**❎ Not ready to use**|
-|---|---|
-|**⏬ Need to install**|**ℹ️ Information**|
 ## **📃 Data Format**
 |**Line**| **Part** | **Data** | **Unit** |
 |---|---|---|---|
