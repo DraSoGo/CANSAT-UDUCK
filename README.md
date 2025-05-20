@@ -1,12 +1,12 @@
 # **🦆 UDUCK-CANSAT 🦆**
-## **Thailand CanSat-Rocket Competition 2025 🚀**
-## **Tool ⚒️**
+## **🚀 Thailand CanSat-Rocket Competition 2025**
+## **⚒️ Tool**
 1. **TTGO LoRa32 SX1276** : controll,communicated with ground
 2. **MPU6050** : sensor,deployment
 3. **GPS** : sensor
 4. **BME280** : sensor
 5. **Servo** : deployment
-## **Data Format 📃**
+## **📃 Data Format**
 |**Line**| **Part** | **Data** | **Unit** |
 |---|---|---|---|
 | 1|GPS| Latitude,Longitude | degree (°) |
