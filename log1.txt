@@ -1,0 +1,504 @@
+-- GPS --
+Lat: 8.368043  Lon: 100.044054
+Time (HHMMSSCC): 12550500
+Speed km/h: 0.26
+Course °: 29.00
+Alt m: -3.30
+HDOP: 87
+Satellites: 8
+
+-- BME280 --
+Temp °C: 27.92
+Pressure hPa: 1006.27
+Alt m: 58.26
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.81, 
+RSSI : -64
+-------------
+-- GPS --
+Lat: 8.368043  Lon: 100.044054
+Time (HHMMSSCC): 12550500
+Speed km/h: 0.26
+Course °: 29.00
+Alt m: -3.30
+HDOP: 87
+Satellites: 8
+
+-- BME280 --
+Temp °C: 27.92
+Pressure hPa: 1006.24
+Alt m: 58.49
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.80, 
+RSSI : -64
+-------------
+-- GPS --
+Lat: 8.368037  Lon: 100.044057
+Time (HHMMSSCC): 12550800
+Speed km/h: 0.24
+Course °: 29.00
+Alt m: -3.40
+HDOP: 78
+Satellites: 10
+
+-- BME280 --
+Temp °C: 27.92
+Pressure hPa: 1006.27
+Alt m: 58.26
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.81,
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368037  Lon: 100.044057
+Time (HHMMSSCC): 12550800
+Speed km/h: 0.24
+Course °: 29.00
+Alt m: -3.40
+HDOP: 78
+Satellites: 10
+
+-- BME280 --
+Temp °C: 27.91
+Pressure hPa: 1006.26
+Alt m: 58.36
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.80,
+RSSI : -65
+-------------
+-- GPS --
+Lat: 8.368033  Lon: 100.044061
+Time (HHMMSSCC): 12551100
+Speed km/h: 0.17
+Course °: 29.00
+Alt m: -4.60
+HDOP: 78
+Satellites: 10
+
+-- BME280 --
+Temp °C: 27.92
+Pressure hPa: 1006.28
+Alt m: 58.22
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.77,
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368033  Lon: 100.044062
+Time (HHMMSSCC): 12551200
+Speed km/h: 0.17
+Course °: 29.00
+Alt m: -4.80
+HDOP: 79
+Satellites: 9
+
+-- BME280 --
+Temp °C: 27.92
+Pressure hPa: 1006.23
+Alt m: 58.59
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.78, 
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368035  Lon: 100.044061
+Time (HHMMSSCC): 12551400
+Speed km/h: 0.02
+Course °: 29.00
+Alt m: -4.80
+HDOP: 79
+Satellites: 9
+
+-- BME280 --
+Temp °C: 27.92
+Pressure hPa: 1006.23
+Alt m: 58.59
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.82, 
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368036  Lon: 100.044061
+Time (HHMMSSCC): 12551500
+Speed km/h: 0.19
+Course °: 29.00
+Alt m: -6.50
+HDOP: 86
+Satellites: 9
+
+-- BME280 --
+Temp °C: 27.92
+Pressure hPa: 1006.26
+Alt m: 58.37
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.76, 
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368036  Lon: 100.044061
+Time (HHMMSSCC): 12551500
+Speed km/h: 0.19
+Course °: 29.00
+Alt m: -6.50
+HDOP: 86
+Satellites: 9
+
+-- BME280 --
+Temp °C: 27.92
+Pressure hPa: 1006.29
+Alt m: 58.12
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.81, 
+RSSI : -64
+-------------
+-- GPS --
+Lat: 8.368037  Lon: 100.044061
+Time (HHMMSSCC): 12551800
+Speed km/h: 0.31
+Course °: 32.00
+Alt m: -6.60
+HDOP: 86
+Satellites: 9
+
+-- BME280 --
+Temp °C: 27.91
+Pressure hPa: 1006.28
+Alt m: 58.17
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.75, 
+RSSI : -62
+-------------
+-- GPS --
+Lat: 8.368037  Lon: 100.044061
+Time (HHMMSSCC): 12551800
+Speed km/h: 0.31
+Course °: 32.00
+Alt m: -6.60
+HDOP: 86
+Satellites: 9
+
+-- BME280 --
+Temp °C: 27.92
+Pressure hPa: 1006.26
+Alt m: 58.37
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.77, 
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368041  Lon: 100.044061
+Time (HHMMSSCC): 12552100
+Speed km/h: 0.26
+Course °: 32.00
+Alt m: -8.30
+HDOP: 84
+Satellites: 9
+
+-- BME280 --
+Temp °C: 27.91
+Pressure hPa: 1006.25
+Alt m: 58.42
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.75, 
+RSSI : -64
+-------------
+-- GPS --
+Lat: 8.368042  Lon: 100.044060
+Time (HHMMSSCC): 12552200
+Speed km/h: 0.07
+Course °: 32.00
+Alt m: -9.00
+HDOP: 84
+Satellites: 9
+
+-- BME280 --
+Temp °C: 27.91
+Pressure hPa: 1006.22
+Alt m: 58.71
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.81, 
+RSSI : -64
+-------------
+-- GPS --
+Lat: 8.368045  Lon: 100.044060
+Time (HHMMSSCC): 12552400
+Speed km/h: 0.06
+Course °: 32.00
+Alt m: -9.00
+HDOP: 84
+Satellites: 9
+
+-- BME280 --
+Temp °C: 27.92
+Pressure hPa: 1006.27
+Alt m: 58.24
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.82, 
+RSSI : -64
+-------------
+-- GPS --
+Lat: 8.368046  Lon: 100.044060
+Time (HHMMSSCC): 12552500
+Speed km/h: 0.06
+Course °: 32.00
+Alt m: -11.30
+HDOP: 84
+Satellites: 8
+
+-- BME280 --
+Temp °C: 27.91
+Pressure hPa: 1006.25
+Alt m: 58.42
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.74,
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368046  Lon: 100.044060
+Time (HHMMSSCC): 12552500
+Speed km/h: 0.06
+Course °: 32.00
+Alt m: -11.30
+HDOP: 84
+Satellites: 8
+
+-- BME280 --
+Temp °C: 27.92
+Pressure hPa: 1006.25
+Alt m: 58.48
+Humidity %: 50.11
+
+Accel X,Y,Z: 0.75,
+RSSI : -62
+-------------
+-- GPS --
+Lat: 8.368051  Lon: 100.044058
+Time (HHMMSSCC): 12552800
+Speed km/h: 0.07
+Course °: 32.00
+Alt m: -12.50
+HDOP: 84
+Satellites: 8
+
+-- BME280 --
+Temp °C: 27.91
+Pressure hPa: 1006.22
+Alt m: 58.66
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.81,
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368051  Lon: 100.044058
+Time (HHMMSSCC): 12552800
+Speed km/h: 0.07
+Course °: 32.00
+Alt m: -12.50
+HDOP: 84
+Satellites: 8
+
+-- BME280 --
+Temp °C: 27.91
+Pressure hPa: 1006.25
+Alt m: 58.48
+Humidity %: 50.11
+
+Accel X,Y,Z: 0.85,
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368054  Lon: 100.044055
+Time (HHMMSSCC): 12553100
+Speed km/h: 0.06
+Course °: 32.00
+Alt m: -13.50
+HDOP: 84
+Satellites: 8
+
+-- BME280 --
+Temp °C: 27.91
+Pressure hPa: 1006.22
+Alt m: 58.72
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.81,
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368055  Lon: 100.044055
+Time (HHMMSSCC): 12553200
+Speed km/h: 0.07
+Course °: 32.00
+Alt m: -13.90
+HDOP: 84
+Satellites: 9
+
+-- BME280 --
+Temp °C: 27.91
+Pressure hPa: 1006.23
+Alt m: 58.59
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.78,
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368056  Lon: 100.044054
+Time (HHMMSSCC): 12553400
+Speed km/h: 0.28
+Course °: 32.00
+Alt m: -13.90
+HDOP: 84
+Satellites: 9
+
+-- BME280 --
+Temp °C: 27.91
+Pressure hPa: 1006.25
+Alt m: 58.42
+Humidity %: 50.11
+
+Accel X,Y,Z: 0.80,
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368057  Lon: 100.044053
+Time (HHMMSSCC): 12553500
+Speed km/h: 0.09
+Course °: 32.00
+Alt m: -14.80
+HDOP: 84
+Satellites: 10
+
+-- BME280 --
+Temp °C: 27.91
+Pressure hPa: 1006.27
+Alt m: 58.27
+Humidity %: 50.11
+
+Accel X,Y,Z: 0.82
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368057  Lon: 100.044053
+Time (HHMMSSCC): 12553500
+Speed km/h: 0.09
+Course °: 32.00
+Alt m: -14.80
+HDOP: 84
+Satellites: 10
+
+-- BME280 --
+Temp °C: 27.91
+Pressure hPa: 1006.25
+Alt m: 58.40
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.80
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368062  Lon: 100.044051
+Time (HHMMSSCC): 12553900
+Speed km/h: 0.04
+Course °: 32.00
+Alt m: -15.90
+HDOP: 76
+Satellites: 10
+
+-- BME280 --
+Temp °C: 27.90
+Pressure hPa: 1006.24
+Alt m: 58.52
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.77
+RSSI : -64
+-------------
+-- GPS --
+Lat: 8.368062  Lon: 100.044051
+Time (HHMMSSCC): 12553900
+Speed km/h: 0.04
+Course °: 32.00
+Alt m: -16.30
+HDOP: 84
+Satellites: 10
+
+-- BME280 --
+Temp °C: 27.90
+Pressure hPa: 1006.25
+Alt m: 58.48
+Humidity %: 50.11
+
+Accel X,Y,Z: 0.79
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368064  Lon: 100.044051
+Time (HHMMSSCC): 12554100
+Speed km/h: 0.02
+Course °: 32.00
+Alt m: -17.00
+HDOP: 84
+Satellites: 10
+
+-- BME280 --
+Temp °C: 27.90
+Pressure hPa: 1006.26
+Alt m: 58.38
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.77
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368066  Lon: 100.044051
+Time (HHMMSSCC): 12554200
+Speed km/h: 0.13
+Course °: 32.00
+Alt m: -17.30
+HDOP: 84
+Satellites: 10
+
+-- BME280 --
+Temp °C: 27.91
+Pressure hPa: 1006.25
+Alt m: 58.42
+Humidity %: 50.11
+
+Accel X,Y,Z: 0.81
+RSSI : -63
+-------------
+-- GPS --
+Lat: 8.368067  Lon: 100.044052
+Time (HHMMSSCC): 12554400
+Speed km/h: 0.17
+Course °: 32.00
+Alt m: -17.30
+HDOP: 84
+Satellites: 10
+
+-- BME280 --
+Temp °C: 27.90
+Pressure hPa: 1006.27
+Alt m: 58.24
+Humidity %: 50.12
+
+Accel X,Y,Z: 0.79
+RSSI : -63
+-------------
