@@ -23,7 +23,7 @@ void setup()
       ;
   }
   Serial.println("LoRa Initial OK!");
-  LoRa.setSyncWord(0x6D)
+  LoRa.setSyncWord(0x6D);
   LoRa.receive();
 }
 
@@ -32,13 +32,15 @@ void loop()
   int packetSize = LoRa.parsePacket();
   if (packetSize > 0)
   {
-    Serial.print("Received: ");
+    // Serial.println("-------------");
     while (LoRa.available())
     {
       Serial.print((char)LoRa.read());
     }
-    Serial.print("  RSSI=");
+    Serial.println();
+    Serial.print("RSSI : ");
     Serial.println(LoRa.packetRssi());
+    Serial.println("-------------");
     LoRa.receive();
   }
 }

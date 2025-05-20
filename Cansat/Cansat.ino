@@ -240,6 +240,8 @@ void printGY()
   imu.getAcceleration(&ax, &ay, &az);
   imu.getRotation(&gx, &gy, &gz);
 
+  Serial.println("-- MPU6050 --");
+  LoRa.println("-- MPU6050 --");
   // accel
   Serial.print("Accel X,Y,Z: ");
   Serial.print(ax * (9.80665 / 16384.0));
@@ -275,7 +277,6 @@ void printGY()
   Serial.print(roll);
   Serial.print("  Pitch °: ");
   Serial.println(pitch);
-
   Serial.println();
   LoRa.print("Roll °: ");
   LoRa.print(roll);
