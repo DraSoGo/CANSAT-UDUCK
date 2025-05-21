@@ -21,7 +21,7 @@ TinyGPSPlus gps;
 #define LORA_SS 18
 #define LORA_RST 14
 #define LORA_DIO0 26
-#define BAND 915E6
+#define BAND 921925000
 
 // ——— I²C for BME280 & MPU6050 ———
 #define I2C_SDA 21

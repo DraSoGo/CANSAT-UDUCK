@@ -3,8 +3,7 @@
 #include <Servo.h>
 
 MPU6050 imu;
-bool ch = 0;
-double first = 500;
+bool ch = 0,chs = 0;
 int16_t axRaw, ayRaw, azRaw;
 int16_t gxRaw, gyRaw, gzRaw;
 double ax, ay, az, gx, gy, gz, roll, pitch;
@@ -17,7 +16,8 @@ void setup()
   Wire.begin();
   myservo.attach(PIN_SERVO);
   imu.initialize();
-  if (!imu.testConnection()) {
+  if (!imu.testConnection())
+  {
     Serial.println("MPU6050 connection failed!");
     while (1);
   }
@@ -28,35 +28,41 @@ void loop()
 {
   imu.getAcceleration(&axRaw, &ayRaw, &azRaw);
   imu.getRotation(&gxRaw, &gyRaw, &gzRaw);
+  if(!chs)
+  {
+    myservo.write(20);
+    chs = 1;
+  }
+  delay(600000);
   ax = axRaw * (9.80665 / 16384.0);
   ay = ayRaw * (9.80665 / 16384.0);
   az = azRaw * (9.80665 / 16384.0);
   gx = gxRaw / 131.0;
   gy = gyRaw / 131.0;
   gz = gzRaw / 131.0;
-  printAccel();
-  printGyro();
+  // printAccel();
+  // printGyro();
   printRollPitch();
-  if(first == 500)
-  {
-    first = roll;
-  }
-  Serial.println(first);
-  if(first/abs(first) != roll/abs(roll))
+  if(!(abs(roll) >= 60 && abs(roll) <= 120) || abs(pitch) >= 30)
   {
     Serial.println("Return");
     if(!ch)
     {
       ch = 1;
       Serial.println("Run Servo");
-      myservo.write(180);
-      // delay(1000);
-      // myservo.detach();
+      for (int pos = 20; pos <= 100; pos += 1)
+      {
+        myservo.write(pos);
+        delay(15);
+      }
+      myservo.detach();
+      delay(5000);
+      // return;
     }
     // myservo.write(0);
   }
   Serial.println("---------");
-  delay(1000);
+  delay(500);
 }
 
 void printAccel()

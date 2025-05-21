@@ -7,7 +7,7 @@
 #define LORA_SS 18
 #define LORA_RST 23
 #define LORA_DIO0 26
-#define BAND 915E6
+#define BAND 921925000
 
 int co = 0;
 
