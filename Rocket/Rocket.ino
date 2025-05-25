@@ -3,10 +3,10 @@
 #include <Servo.h>
 
 MPU6050 imu;
-bool ch = 0,chs = 0;
+bool ch = 0,chs = 0,chh = 0;
 int16_t axRaw, ayRaw, azRaw;
 int16_t gxRaw, gyRaw, gzRaw;
-double ax, ay, az, gx, gy, gz, roll, pitch;
+double ax, ay, az, gx, gy, gz, roll, pitch, froll, fpitch;
 #define PIN_SERVO 9
 Servo myservo;
 
@@ -44,7 +44,13 @@ void loop()
   // printAccel();
   // printGyro();
   printRollPitch();
-  if(abs(roll)-90 >= 30 || abs(pitch) >= 30)
+  if (!chh)
+  {
+    chh = 1;
+    froll = roll;
+    fpitch = pitch;
+  }
+  if(abs(abs(roll)-abs(froll)) >= 30 || abs(pitch)-abs(fpitch) >= 30)
   {
     Serial.println("Return");
     if(!ch)
