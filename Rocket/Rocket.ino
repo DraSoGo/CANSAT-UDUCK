@@ -33,7 +33,8 @@ void loop()
     myservo.write(20);
     chs = 1;
   }
-  delay(600000);
+  delay(1000);
+  // delay(600000);
   ax = axRaw * (9.80665 / 16384.0);
   ay = ayRaw * (9.80665 / 16384.0);
   az = azRaw * (9.80665 / 16384.0);
@@ -43,7 +44,7 @@ void loop()
   // printAccel();
   // printGyro();
   printRollPitch();
-  if(!(abs(roll) >= 60 && abs(roll) <= 120) || abs(pitch) >= 30)
+  if(abs(roll)-90 >= 30 || abs(pitch) >= 30)
   {
     Serial.println("Return");
     if(!ch)
@@ -56,7 +57,7 @@ void loop()
         delay(15);
       }
       myservo.detach();
-      delay(5000);
+      // delay(5000);
       // return;
     }
     // myservo.write(0);

@@ -24,7 +24,7 @@ void setup() {
   
   // default settings1
   // (you can also pass in a Wire library object like &Wire2)
-  status = bme.begin();  
+  status = bme.begin(0x76);  
   if (!status) {
     Serial.println("Starting BME280 failed!");
     while (1);

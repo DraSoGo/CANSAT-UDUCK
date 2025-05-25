@@ -13,7 +13,7 @@ int co = 0;
 
 void setup()
 {
-  Serial.begin(115200);
+  Serial.begin(9600);
   while (!Serial)
     ;
   SPI.begin(LORA_SCK, LORA_MISO, LORA_MOSI, LORA_SS);
@@ -45,4 +45,9 @@ void loop()
     Serial.println("-------------");
     LoRa.receive();
   }
+  // else
+  // {
+  //   Serial.println("wait data...");
+  //   delay(1000);
+  // }
 }
