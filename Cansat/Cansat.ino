@@ -22,6 +22,8 @@ TinyGPSPlus gps;
 #define LORA_RST 14
 #define LORA_DIO0 26
 #define BAND 921925000
+#define LORA_BW 125E3
+#define LORA_SF 9
 
 // ——— I²C for BME280 & MPU6050 ———
 #define I2C_SDA 21
@@ -55,7 +57,9 @@ void setup()
     while (1)
       ;
   }
-  LoRa.setSyncWord(0x6D);
+  LoRa.setSignalBandwidth(LORA_BW);
+  LoRa.setSpreadingFactor(LORA_SF);
+  // LoRa.setSyncWord(0x6D);
   // —— I2C bus setup ——
   Wire.begin(I2C_SDA, I2C_SCL);
   imu.initialize();

@@ -8,6 +8,8 @@
 #define LORA_RST 23
 #define LORA_DIO0 26
 #define BAND 921925000
+#define LORA_BW 125E3
+#define LORA_SF 9
 
 int co = 0;
 
@@ -24,8 +26,10 @@ void setup()
     while (1)
       ;
   }
+  LoRa.setSignalBandwidth(LORA_BW);
+  LoRa.setSpreadingFactor(LORA_SF);
   Serial.println("LoRa Initial OK!");
-  LoRa.setSyncWord(0x6D);
+  // LoRa.setSyncWord(0x6D);
   LoRa.receive();
 }
 
