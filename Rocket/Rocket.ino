@@ -32,8 +32,8 @@ void loop()
   {
     myservo.write(20);
     chs = 1;
+    delay(10000);
   }
-  delay(1000);
   // delay(600000);
   ax = axRaw * (9.80665 / 16384.0);
   ay = ayRaw * (9.80665 / 16384.0);
@@ -50,7 +50,7 @@ void loop()
     froll = roll;
     fpitch = pitch;
   }
-  if(abs(abs(roll)-abs(froll)) >= 30 || abs(pitch)-abs(fpitch) >= 30)
+  if(abs(abs(roll)-abs(froll)) >= 45 || abs(pitch)-abs(fpitch) >= 45)
   {
     Serial.println("Return");
     if(!ch)
@@ -69,7 +69,7 @@ void loop()
     // myservo.write(0);
   }
   Serial.println("---------");
-  delay(500);
+  delay(100);
 }
 
 void printAccel()
