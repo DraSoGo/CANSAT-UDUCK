@@ -3,10 +3,11 @@
 #include <Servo.h>
 
 MPU6050 imu;
-bool ch = 0,chs = 0,chh = 0;
+bool ch = 0,chs = 0,chh = 0,cha = 0;
+int16_t xx = 60;
 int16_t axRaw, ayRaw, azRaw;
 int16_t gxRaw, gyRaw, gzRaw;
-double ax, ay, az, gx, gy, gz, roll, pitch, froll, fpitch;
+double ax, ay, az, gx, gy, gz, roll, pitch, froll, fpitch,bax == -1,bay == -1,baz == -1;
 #define PIN_SERVO 9
 Servo myservo;
 
@@ -30,9 +31,9 @@ void loop()
   imu.getRotation(&gxRaw, &gyRaw, &gzRaw);
   if(!chs)
   {
-    myservo.write(20);
+    myservo.write(25);
     chs = 1;
-    delay(10000);
+    // delay(10000);
   }
   // delay(600000);
   ax = axRaw * (9.80665 / 16384.0);
@@ -41,6 +42,16 @@ void loop()
   gx = gxRaw / 131.0;
   gy = gyRaw / 131.0;
   gz = gzRaw / 131.0;
+  if (!(bax == -1 && bay == -1 && baz == -1) && cha == 0)
+  {
+    if(abs(ay-bay) > xx)
+    {
+      cha = 1;
+    }
+  }
+  bax = ax;
+  bay = ay;
+  baz = az;
   // printAccel();
   // printGyro();
   printRollPitch();
@@ -50,17 +61,17 @@ void loop()
     froll = roll;
     fpitch = pitch;
   }
-  if(abs(abs(roll)-abs(froll)) >= 45 || abs(pitch)-abs(fpitch) >= 45)
+  if((abs(abs(roll)-abs(froll)) >= 50 || abs(pitch)-abs(fpitch) >= 50) && cha == 1)
   {
     Serial.println("Return");
     if(!ch)
     {
       ch = 1;
       Serial.println("Run Servo");
-      for (int pos = 20; pos <= 100; pos += 1)
+      for (int pos = 20; pos <= 120; pos += 1)
       {
         myservo.write(pos);
-        delay(15);
+        delay(1);
       }
       myservo.detach();
       // delay(5000);

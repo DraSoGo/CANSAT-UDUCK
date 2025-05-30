@@ -7,7 +7,8 @@
 #define LORA_SS 18
 #define LORA_RST 23
 #define LORA_DIO0 26
-#define BAND 921925000
+// #define BAND 921925000
+#define BAND 922525000
 #define LORA_BW 125E3
 #define LORA_SF 9
 

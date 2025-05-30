@@ -21,7 +21,8 @@ TinyGPSPlus gps;
 #define LORA_SS 18
 #define LORA_RST 14
 #define LORA_DIO0 26
-#define BAND 921925000
+// #define BAND 921925000
+#define BAND 922525000
 #define LORA_BW 125E3
 #define LORA_SF 9
 
@@ -138,6 +139,10 @@ void printGY()
 {
   imu.getAcceleration(&ax, &ay, &az);
   imu.getRotation(&gx, &gy, &gz);
+  if(ax == 0 && ay == 0 && az == 0 && gx == 0 && gy == 0 && gz == 0)
+  {
+    ESP.restart();
+  }
   // accel
   LoRa.print(ax * (9.80665 / 16384.0));
   LoRa.print(",");
