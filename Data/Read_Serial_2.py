@@ -4,7 +4,7 @@ from datetime import datetime
 
 ser = serial.Serial('/dev/ttyACM1', 9600)
 
-with open("log_2.txt", "w") as f:
+with open("/home/drasogun/DraSoGun/Work/CANSAT_UDUCK/Hardware/Data/log_2.txt", "w") as f:
     while True:
         line = ser.readline().decode('utf-8', errors='replace').strip()
         if line == "-------------":
